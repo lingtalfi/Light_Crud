@@ -1,0 +1,12 @@
+dependencies: 
+    Ling: 
+        - Bat
+        - Light
+        - Light_DatabaseInfo
+        - Light_Database
+        - Light_MicroPermission
+        - Light_Events
+    
+
+post_install: 
+    map: true

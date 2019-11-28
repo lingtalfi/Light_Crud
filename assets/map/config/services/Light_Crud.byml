@@ -1,0 +1,5 @@
+crud:
+    instance: Ling\Light_Crud\Service\LightCrudService
+    methods:
+        setContainer:
+            container: @container()
