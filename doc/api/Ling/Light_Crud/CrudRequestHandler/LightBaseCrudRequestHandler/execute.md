@@ -24,6 +24,19 @@ public [LightBaseCrudRequestHandler::execute](https://github.com/lingtalfi/Light
 Executes the sql request identified by the given arguments,
 and throws an exception if a problem occurs.
 
+The params depend on the action, we suggest the following:
+
+
+- create:
+     - data: array of key/value pairs
+- update:
+     - data: array of key/value pairs
+     - updateRic: array of key/value pairs representing the ric
+- delete:
+     - ric: array of key/value pairs representing the ric of the row to delete
+- deleteMultiple:
+     - rics: array of ric items, each of which being an array of key/value pairs representing the ric of a row to delete
+
 
 
 
@@ -67,7 +80,7 @@ Exceptions thrown
 
 Source Code
 ===========
-See the source code for method [LightBaseCrudRequestHandler::execute](https://github.com/lingtalfi/Light_Crud/blob/master/CrudRequestHandler/LightBaseCrudRequestHandler.php#L54-L100)
+See the source code for method [LightBaseCrudRequestHandler::execute](https://github.com/lingtalfi/Light_Crud/blob/master/CrudRequestHandler/LightBaseCrudRequestHandler.php#L54-L84)
 
 
 See Also

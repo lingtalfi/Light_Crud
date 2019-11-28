@@ -59,6 +59,10 @@ crud:
 History Log
 =============
 
+- 1.0.1 -- 2019-11-28
+
+    - update LightCrudRequestHandlerInterface, add precision comment
+    
 - 1.0.0 -- 2019-11-28
 
     - initial commit

@@ -54,22 +54,6 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
     public function execute(string $pluginContextIdentifier, string $table, string $action, array $params = [])
     {
 
-        /**
-         * In this implementation by default, we expect the following params:
-         *
-         * - create:
-         *      - data: array of key/value pairs
-         * - update:
-         *      - data: array of key/value pairs
-         *      - updateRic: array of key/value pairs representing the ric
-         * - delete:
-         *      - ric: array of key/value pairs representing the ric of the row to delete
-         * - deleteMultiple:
-         *      - rics: array of ric items, each of which being an array of key/value pairs representing the ric of a row to delete
-         *
-         *
-         */
-
         if (false === in_array($table, $this->getAllowedTables())) {
             $this->error("Table not allowed: $table.");
         }
@@ -98,6 +82,8 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
 
 
     }
+
+
 
 
 

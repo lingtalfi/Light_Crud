@@ -95,7 +95,7 @@ class LightCrudService
 
 
         } else {
-            throw new LightCrudException("Unknown handler with pluginIdentifier $pluginIdentifier.");
+            throw new LightCrudException("Unknown handler with pluginIdentifier \"$pluginIdentifier\".");
         }
     }
 
