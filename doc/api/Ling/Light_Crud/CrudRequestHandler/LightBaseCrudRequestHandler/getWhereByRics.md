@@ -72,7 +72,7 @@ Returns string.
 
 Source Code
 ===========
-See the source code for method [LightBaseCrudRequestHandler::getWhereByRics](https://github.com/lingtalfi/Light_Crud/blob/master/CrudRequestHandler/LightBaseCrudRequestHandler.php#L281-L312)
+See the source code for method [LightBaseCrudRequestHandler::getWhereByRics](https://github.com/lingtalfi/Light_Crud/blob/master/CrudRequestHandler/LightBaseCrudRequestHandler.php#L389-L420)
 
 
 See Also

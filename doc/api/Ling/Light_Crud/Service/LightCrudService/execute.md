@@ -23,6 +23,8 @@ public [LightCrudService::execute](https://github.com/lingtalfi/Light_Crud/blob/
 
 Executes the sql request and dispatches an event.
 
+See the [LightCrudRequestHandlerInterface](https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/CrudRequestHandler/LightCrudRequestHandlerInterface.md) comments for a more details about the parameters.
+
 
 
 
@@ -66,7 +68,7 @@ Exceptions thrown
 
 Source Code
 ===========
-See the source code for method [LightCrudService::execute](https://github.com/lingtalfi/Light_Crud/blob/master/Service/LightCrudService.php#L69-L100)
+See the source code for method [LightCrudService::execute](https://github.com/lingtalfi/Light_Crud/blob/master/Service/LightCrudService.php#L71-L102)
 
 
 See Also

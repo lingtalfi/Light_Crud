@@ -59,6 +59,8 @@ class LightCrudService
     /**
      * Executes the sql request and dispatches an event.
      *
+     * See the @page(LightCrudRequestHandlerInterface) comments for a more details about the parameters.
+     *
      *
      * @param string $contextIdentifier
      * @param string $table

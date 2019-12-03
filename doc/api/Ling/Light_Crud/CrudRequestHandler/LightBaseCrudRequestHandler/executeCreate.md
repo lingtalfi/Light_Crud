@@ -23,6 +23,11 @@ protected [LightBaseCrudRequestHandler::executeCreate](https://github.com/lingta
 
 Executes the crud.create request.
 
+The params array has the following structure:
+
+- data: array, the row to insert
+- ?multiplier: array, the multiplier array (see [the form multiplier trick](https://github.com/lingtalfi/TheBar/blob/master/discussions/form-multiplier.md) for more details)
+
 
 
 
@@ -62,7 +67,7 @@ Exceptions thrown
 
 Source Code
 ===========
-See the source code for method [LightBaseCrudRequestHandler::executeCreate](https://github.com/lingtalfi/Light_Crud/blob/master/CrudRequestHandler/LightBaseCrudRequestHandler.php#L101-L121)
+See the source code for method [LightBaseCrudRequestHandler::executeCreate](https://github.com/lingtalfi/Light_Crud/blob/master/CrudRequestHandler/LightBaseCrudRequestHandler.php#L106-L165)
 
 
 See Also

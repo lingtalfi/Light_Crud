@@ -53,7 +53,6 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
      */
     public function execute(string $pluginContextIdentifier, string $table, string $action, array $params = [])
     {
-
         if (false === in_array($table, $this->getAllowedTables())) {
             $this->error("Table not allowed: $table.");
         }
@@ -93,6 +92,12 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
     /**
      * Executes the crud.create request.
      *
+     * The params array has the following structure:
+     *
+     * - data: array, the row to insert
+     * - ?multiplier: array, the multiplier array (see @page(the form multiplier trick) for more details)
+     *
+     *
      * @param string $pluginContextIdentifier
      * @param string $table
      * @param array $params
@@ -108,6 +113,8 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
         $columns = $tableInfo['columns'];
 
         $userData = $params['data'];
+        $multiplier = $params['multiplier'] ?? null;
+
         /**
          * Make sure the user doesn't use the key to do some sql injection.
          */
@@ -117,12 +124,56 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
          * @var $db LightDatabaseService
          */
         $db = $this->container->get("database");
-        $db->insert($table, $data);
+
+
+        if ($multiplier) {
+            $multiplierColumn = $multiplier['column'];
+
+
+            if (false === array_key_exists($multiplierColumn, $data)) {
+                $this->error("Multiplier column \"$multiplierColumn\" defined but not found in the given data.");
+            }
+            if (false === is_array($data[$multiplierColumn])) {
+                $type = gettype($data[$multiplierColumn]);
+                $this->error("The \"$multiplierColumn\" multiplier column's value must be an array, $type given.");
+            }
+            /**
+             * @var $exception \Exception
+             */
+            $exception = null;
+            $res = $db->transaction(function () use ($data, $multiplier, $multiplierColumn, $db, $table) {
+                $replaceDuplicate = $multiplier['replace_duplicate'] ?? true;
+
+                foreach ($data[$multiplierColumn] as $val) {
+                    $row = $data;
+                    $row[$multiplierColumn] = $val;
+                    if (true === $replaceDuplicate) {
+                        $db->replace($table, $row);
+                    } else {
+                        $db->insert($table, $row);
+                    }
+                }
+            }, $exception);
+
+
+            if (false === $res) {
+                throw $exception;
+            }
+        } else {
+            $db->insert($table, $data);
+        }
     }
 
 
     /**
      * Executes the crud.update request.
+     *
+     *
+     * The params array has the following structure:
+     *
+     * - data: array, the row to update
+     * - updateRic: array, the key/value pairs array representing the @page(ric strict) columns and values of the row to update. It basically defines the where part of the sql query.
+     * - ?multiplier: array, the multiplier array (see @page(the form multiplier trick) for more details)
      *
      * @param string $pluginContextIdentifier
      * @param string $table
@@ -143,6 +194,9 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
 
         $userData = $params['data'];
         $userRic = $params['updateRic']; // array of key/value pairs
+        $multiplier = $params['multiplier'] ?? null;
+
+
         /**
          * Make sure the user doesn't use the key to do some sql injection.
          */
@@ -163,7 +217,61 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
          * @var $db LightDatabaseService
          */
         $db = $this->container->get("database");
-        $db->update($table, $data, $ric);
+
+
+        if ($multiplier) {
+            $multiplierColumn = $multiplier['column'];
+            $ucCol = $multiplier['update_cleaner_column'];
+
+
+            if (false === array_key_exists($multiplierColumn, $data)) {
+                $this->error("Multiplier column \"$multiplierColumn\" defined but not found in the given data.");
+            }
+            if (false === is_array($data[$multiplierColumn])) {
+                $type = gettype($data[$multiplierColumn]);
+                $this->error("The \"$multiplierColumn\" multiplier column's value must be an array, $type given.");
+            }
+
+            if (false === array_key_exists($ucCol, $data)) {
+                $this->error("Multiplier: update_cleaner_column \"$ucCol\" not found in the given data.");
+            }
+            $ucVal = $data[$ucCol];
+
+
+            if ($data[$multiplierColumn]) {
+                /**
+                 * @var $exception \Exception
+                 */
+                $exception = null;
+                $res = $db->transaction(function () use ($data, $multiplier, $multiplierColumn, $ucCol, $ucVal, $db, $table) {
+
+
+                    $replaceDuplicate = $multiplier['replace_duplicate'] ?? true;
+
+                    $db->delete($table, [
+                        $ucCol => $ucVal,
+                    ]);
+
+
+                    foreach ($data[$multiplierColumn] as $val) {
+                        $row = $data;
+                        $row[$multiplierColumn] = $val;
+                        if (true === $replaceDuplicate) {
+                            $db->replace($table, $row);
+                        } else {
+                            $db->insert($table, $row);
+                        }
+                    }
+                }, $exception);
+
+
+                if (false === $res) {
+                    throw $exception;
+                }
+            }
+        } else {
+            $db->update($table, $data, $ric);
+        }
     }
 
 

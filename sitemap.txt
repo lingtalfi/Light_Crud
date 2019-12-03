@@ -1,4 +1,8 @@
 https://github.com/lingtalfi/Light_Crud/blob/master/README.md
+https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/AjaxHandler/LightCrudAjaxHandler/doHandle.md
+https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/AjaxHandler/LightCrudAjaxHandler/error.md
+https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/AjaxHandler/LightCrudAjaxHandler/executeDeleteRows.md
+https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/AjaxHandler/LightCrudAjaxHandler.md
 https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/CrudRequestHandler/LightBaseCrudRequestHandler/__construct.md
 https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/CrudRequestHandler/LightBaseCrudRequestHandler/checkMicroPermission.md
 https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/CrudRequestHandler/LightBaseCrudRequestHandler/error.md

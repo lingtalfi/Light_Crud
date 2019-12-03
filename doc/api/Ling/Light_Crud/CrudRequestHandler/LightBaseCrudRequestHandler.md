@@ -4,7 +4,7 @@
 
 The LightBaseCrudRequestHandler class
 ================
-2019-11-28 --> 2019-11-28
+2019-11-28 --> 2019-12-03
 
 
 
@@ -89,4 +89,4 @@ See the source code of [Ling\Light_Crud\CrudRequestHandler\LightBaseCrudRequestH
 
 SeeAlso
 ==============
-Next class: [LightCrudRequestHandlerInterface](https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/CrudRequestHandler/LightCrudRequestHandlerInterface.md)<br>
+Previous class: [LightCrudAjaxHandler](https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/AjaxHandler/LightCrudAjaxHandler.md)<br>Next class: [LightCrudRequestHandlerInterface](https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/CrudRequestHandler/LightCrudRequestHandlerInterface.md)<br>
