@@ -35,6 +35,7 @@ Dependencies
 - [Light_DatabaseInfo](https://github.com/lingtalfi/Light_DatabaseInfo)
 - [Light_Database](https://github.com/lingtalfi/Light_Database)
 - [Light_MicroPermission](https://github.com/lingtalfi/Light_MicroPermission)
+- [SimplePdoWrapper](https://github.com/lingtalfi/SimplePdoWrapper)
 - [Light_Events](https://github.com/lingtalfi/Light_Events)
 
 

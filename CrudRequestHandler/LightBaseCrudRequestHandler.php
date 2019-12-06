@@ -11,6 +11,7 @@ use Ling\Light_Crud\Exception\LightCrudException;
 use Ling\Light_Database\Service\LightDatabaseService;
 use Ling\Light_DatabaseInfo\Service\LightDatabaseInfoService;
 use Ling\Light_MicroPermission\Service\LightMicroPermissionService;
+use Ling\SimplePdoWrapper\Util\RicHelper;
 
 
 /**
@@ -260,7 +261,7 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
         }
 
         $markers = [];
-        $sWhere = $this->getWhereByRics($ricStrict, $rics, $markers);
+        $sWhere = RicHelper::getWhereByRics($ricStrict, $rics, $markers);
         $db->delete($table, $sWhere, $markers);
     }
 
@@ -306,64 +307,7 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
         return $dbInfoService->getTables();
     }
 
-    /**
-     *
-     * Returns the where part of an sql query (where keyword excluded) based on the given
-     * rics.
-     * Also feeds the pdo markers array.
-     *
-     * It returns a string that looks like this for instance (parenthesis are part of the returned string)):
-     *
-     * - (
-     *      (user_id like '1' AND permission_group_id like '5')
-     *      OR (user_id like '3' AND permission_group_id like '4')
-     *      ...
-     *   )
-     *
-     *
-     * The given rics is an array of ric column names,
-     * whereas the given userRics is an array of items, each of which representing a row and
-     * being an array of (ric) column to value.
-     *
-     *
-     *
-     * @param array $ricColumns
-     * @param array $userRics
-     * @param array $markers
-     * @return string
-     */
-    protected function getWhereByRics(array $ricColumns, array $userRics, array &$markers): string
-    {
-        $s = '';
-        $markerInc = 1;
-        if ($userRics) {
-            $s .= '(';
-            $c = 0;
-            foreach ($userRics as $userRic) {
-                if (0 !== $c) {
-                    $s .= ' or ';
-                }
-                $s .= '(';
-                $d = 0;
-                foreach ($userRic as $col => $val) {
-                    if (in_array($col, $ricColumns, true)) {
-                        if (0 !== $d) {
-                            $s .= ' and ';
-                        }
-                        $marker = $col . '_' . $markerInc++;
-                        $s .= "$col like :$marker";
-                        $d++;
-                        $markers[$marker] = $val;
-                    }
-                }
 
-                $s .= ')';
-                $c++;
-            }
-            $s .= ')';
-        }
-        return $s;
-    }
 
 
     /**

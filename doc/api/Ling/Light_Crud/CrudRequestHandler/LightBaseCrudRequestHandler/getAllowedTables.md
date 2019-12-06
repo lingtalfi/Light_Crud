@@ -51,7 +51,7 @@ Exceptions thrown
 
 Source Code
 ===========
-See the source code for method [LightBaseCrudRequestHandler::getAllowedTables](https://github.com/lingtalfi/Light_Crud/blob/master/CrudRequestHandler/LightBaseCrudRequestHandler.php#L300-L307)
+See the source code for method [LightBaseCrudRequestHandler::getAllowedTables](https://github.com/lingtalfi/Light_Crud/blob/master/CrudRequestHandler/LightBaseCrudRequestHandler.php#L301-L308)
 
 
 See Also
@@ -59,5 +59,5 @@ See Also
 
 The [LightBaseCrudRequestHandler](https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/CrudRequestHandler/LightBaseCrudRequestHandler.md) class.
 
-Previous method: [checkMicroPermission](https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/CrudRequestHandler/LightBaseCrudRequestHandler/checkMicroPermission.md)<br>Next method: [getWhereByRics](https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/CrudRequestHandler/LightBaseCrudRequestHandler/getWhereByRics.md)<br>
+Previous method: [checkMicroPermission](https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/CrudRequestHandler/LightBaseCrudRequestHandler/checkMicroPermission.md)<br>Next method: [error](https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/CrudRequestHandler/LightBaseCrudRequestHandler/error.md)<br>
 

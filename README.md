@@ -59,6 +59,10 @@ crud:
 History Log
 =============
 
+- 1.3.0 -- 2019-12-06
+
+    - move LightBaseCrudRequestHandler->getWhereByRics to SimplePdoWrapper planet
+    
 - 1.2.0 -- 2019-12-06
 
     - update LightBaseCrudRequestHandler to accommodate the latest version of the form multiplier trick

@@ -37,7 +37,6 @@ class <span class="pl-k">LightBaseCrudRequestHandler</span> implements [LightCru
     - protected [executeDelete](https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/CrudRequestHandler/LightBaseCrudRequestHandler/executeDelete.md)(string $pluginContextIdentifier, string $table, ?array $params = [], ?bool $isMultiple = false) : void
     - protected [checkMicroPermission](https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/CrudRequestHandler/LightBaseCrudRequestHandler/checkMicroPermission.md)(string $pluginContextIdentifier, string $table, string $action) : void
     - protected [getAllowedTables](https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/CrudRequestHandler/LightBaseCrudRequestHandler/getAllowedTables.md)() : array
-    - protected [getWhereByRics](https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/CrudRequestHandler/LightBaseCrudRequestHandler/getWhereByRics.md)(array $ricColumns, array $userRics, array &$markers) : string
     - protected [error](https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/CrudRequestHandler/LightBaseCrudRequestHandler/error.md)(string $msg) : void
 
 }
@@ -73,7 +72,6 @@ Methods
 - [LightBaseCrudRequestHandler::executeDelete](https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/CrudRequestHandler/LightBaseCrudRequestHandler/executeDelete.md) &ndash; Executes the crud.delete request.
 - [LightBaseCrudRequestHandler::checkMicroPermission](https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/CrudRequestHandler/LightBaseCrudRequestHandler/checkMicroPermission.md) &ndash; and throws an exception if that's not the case.
 - [LightBaseCrudRequestHandler::getAllowedTables](https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/CrudRequestHandler/LightBaseCrudRequestHandler/getAllowedTables.md) &ndash; Returns the array of allowed tables.
-- [LightBaseCrudRequestHandler::getWhereByRics](https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/CrudRequestHandler/LightBaseCrudRequestHandler/getWhereByRics.md) &ndash; rics.
 - [LightBaseCrudRequestHandler::error](https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/CrudRequestHandler/LightBaseCrudRequestHandler/error.md) &ndash; Throws an error message.
 
 
