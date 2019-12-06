@@ -59,6 +59,10 @@ crud:
 History Log
 =============
 
+- 1.2.0 -- 2019-12-06
+
+    - update LightBaseCrudRequestHandler to accommodate the latest version of the form multiplier trick
+    
 - 1.1.0 -- 2019-12-03
 
     - update LightBaseCrudRequestHandler, can now handle the form multiplier trick

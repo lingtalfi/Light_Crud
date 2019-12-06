@@ -128,6 +128,8 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
 
         if ($multiplier) {
             $multiplierColumn = $multiplier['column'];
+            $insertMode = $multiplier['insert_mode'] ?? 'insert';
+            $isInsert = ("insert" === $insertMode);
 
 
             if (false === array_key_exists($multiplierColumn, $data)) {
@@ -141,16 +143,15 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
              * @var $exception \Exception
              */
             $exception = null;
-            $res = $db->transaction(function () use ($data, $multiplier, $multiplierColumn, $db, $table) {
-                $replaceDuplicate = $multiplier['replace_duplicate'] ?? true;
+            $res = $db->transaction(function () use ($data, $multiplier, $multiplierColumn, $db, $table, $isInsert) {
 
                 foreach ($data[$multiplierColumn] as $val) {
                     $row = $data;
                     $row[$multiplierColumn] = $val;
-                    if (true === $replaceDuplicate) {
-                        $db->replace($table, $row);
-                    } else {
+                    if (true === $isInsert) {
                         $db->insert($table, $row);
+                    } else {
+                        $db->replace($table, $row);
                     }
                 }
             }, $exception);
@@ -194,7 +195,6 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
 
         $userData = $params['data'];
         $userRic = $params['updateRic']; // array of key/value pairs
-        $multiplier = $params['multiplier'] ?? null;
 
 
         /**
@@ -217,61 +217,7 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
          * @var $db LightDatabaseService
          */
         $db = $this->container->get("database");
-
-
-        if ($multiplier) {
-            $multiplierColumn = $multiplier['column'];
-            $ucCol = $multiplier['update_cleaner_column'];
-
-
-            if (false === array_key_exists($multiplierColumn, $data)) {
-                $this->error("Multiplier column \"$multiplierColumn\" defined but not found in the given data.");
-            }
-            if (false === is_array($data[$multiplierColumn])) {
-                $type = gettype($data[$multiplierColumn]);
-                $this->error("The \"$multiplierColumn\" multiplier column's value must be an array, $type given.");
-            }
-
-            if (false === array_key_exists($ucCol, $data)) {
-                $this->error("Multiplier: update_cleaner_column \"$ucCol\" not found in the given data.");
-            }
-            $ucVal = $data[$ucCol];
-
-
-            if ($data[$multiplierColumn]) {
-                /**
-                 * @var $exception \Exception
-                 */
-                $exception = null;
-                $res = $db->transaction(function () use ($data, $multiplier, $multiplierColumn, $ucCol, $ucVal, $db, $table) {
-
-
-                    $replaceDuplicate = $multiplier['replace_duplicate'] ?? true;
-
-                    $db->delete($table, [
-                        $ucCol => $ucVal,
-                    ]);
-
-
-                    foreach ($data[$multiplierColumn] as $val) {
-                        $row = $data;
-                        $row[$multiplierColumn] = $val;
-                        if (true === $replaceDuplicate) {
-                            $db->replace($table, $row);
-                        } else {
-                            $db->insert($table, $row);
-                        }
-                    }
-                }, $exception);
-
-
-                if (false === $res) {
-                    throw $exception;
-                }
-            }
-        } else {
-            $db->update($table, $data, $ric);
-        }
+        $db->update($table, $data, $ric);
     }
 
 
