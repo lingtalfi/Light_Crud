@@ -68,7 +68,7 @@ Exceptions thrown
 
 Source Code
 ===========
-See the source code for method [LightCrudService::execute](https://github.com/lingtalfi/Light_Crud/blob/master/Service/LightCrudService.php#L71-L102)
+See the source code for method [LightCrudService::execute](https://github.com/lingtalfi/Light_Crud/blob/master/Service/LightCrudService.php#L71-L83)
 
 
 See Also

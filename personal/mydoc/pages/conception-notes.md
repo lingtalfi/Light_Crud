@@ -10,7 +10,7 @@ Rather than letting each plugin handles its own database interaction, we provide
 
 One benefit of this is that it tends to bring consistency in the client application.
 
-For instance, we can easily provide a hook system (basically just dispatching events when a crud action is executed).
+
 
 
 

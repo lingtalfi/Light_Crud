@@ -59,6 +59,10 @@ crud:
 History Log
 =============
 
+- 1.4.0 -- 2019-12-16
+
+    - removed event system, as it's now handled directly by the underlying Light_Database plugin
+
 - 1.3.0 -- 2019-12-06
 
     - move LightBaseCrudRequestHandler->getWhereByRics to SimplePdoWrapper planet

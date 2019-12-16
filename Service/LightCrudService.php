@@ -77,25 +77,6 @@ class LightCrudService
             $handler = $this->handlers[$pluginIdentifier];
             $handler->execute($pluginContextIdentifier, $table, $action, $params);
 
-
-            //--------------------------------------------
-            // dispatching the event
-            //--------------------------------------------
-            $event = LightEvent::createByContainer($this->container);
-            $event->setVar('table', $table);
-            $event->setVar('action', $action);
-            $event->setVar('params', $params);
-            /**
-             * @var $dispatcher LightEventsService
-             */
-            $dispatcher = $this->container->get("events");
-            $dispatcher->dispatch(implode('_', [
-                'on',
-                $table,
-                $action,
-            ]), $event);
-
-
         } else {
             throw new LightCrudException("Unknown handler with pluginIdentifier \"$pluginIdentifier\".");
         }

@@ -140,27 +140,18 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
                 $type = gettype($data[$multiplierColumn]);
                 $this->error("The \"$multiplierColumn\" multiplier column's value must be an array, $type given.");
             }
-            /**
-             * @var $exception \Exception
-             */
-            $exception = null;
-            $res = $db->transaction(function () use ($data, $multiplier, $multiplierColumn, $db, $table, $isInsert) {
 
-                foreach ($data[$multiplierColumn] as $val) {
-                    $row = $data;
-                    $row[$multiplierColumn] = $val;
-                    if (true === $isInsert) {
-                        $db->insert($table, $row);
-                    } else {
-                        $db->replace($table, $row);
-                    }
+
+            foreach ($data[$multiplierColumn] as $val) {
+                $row = $data;
+                $row[$multiplierColumn] = $val;
+                if (true === $isInsert) {
+                    $db->insert($table, $row);
+                } else {
+                    $db->replace($table, $row);
                 }
-            }, $exception);
-
-
-            if (false === $res) {
-                throw $exception;
             }
+
         } else {
             $db->insert($table, $data);
         }
@@ -306,8 +297,6 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
         $dbInfoService = $this->container->get("database_info");
         return $dbInfoService->getTables();
     }
-
-
 
 
     /**
