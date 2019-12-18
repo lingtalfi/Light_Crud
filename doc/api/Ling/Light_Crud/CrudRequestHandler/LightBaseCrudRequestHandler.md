@@ -4,7 +4,7 @@
 
 The LightBaseCrudRequestHandler class
 ================
-2019-11-28 --> 2019-12-16
+2019-11-28 --> 2019-12-18
 
 
 
@@ -25,7 +25,6 @@ Class synopsis
 class <span class="pl-k">LightBaseCrudRequestHandler</span> implements [LightCrudRequestHandlerInterface](https://github.com/lingtalfi/Light_Crud/blob/master/doc/api/Ling/Light_Crud/CrudRequestHandler/LightCrudRequestHandlerInterface.md), [LightServiceContainerAwareInterface](https://github.com/lingtalfi/Light/blob/master/doc/api/Ling/Light/ServiceContainer/LightServiceContainerAwareInterface.md) {
 
 - Properties
-    - protected string [$pluginName](#property-pluginName) ;
     - protected [Ling\Light\ServiceContainer\LightServiceContainerInterface](https://github.com/lingtalfi/Light/blob/master/doc/api/Ling/Light/ServiceContainer/LightServiceContainerInterface.md) [$container](#property-container) ;
 
 - Methods
@@ -46,12 +45,6 @@ class <span class="pl-k">LightBaseCrudRequestHandler</span> implements [LightCru
 
 Properties
 =============
-
-- <span id="property-pluginName"><b>pluginName</b></span>
-
-    This property holds the pluginName for this instance.
-    
-    
 
 - <span id="property-container"><b>container</b></span>
 

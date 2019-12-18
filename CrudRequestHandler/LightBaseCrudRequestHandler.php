@@ -20,11 +20,6 @@ use Ling\SimplePdoWrapper\Util\RicHelper;
 class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, LightServiceContainerAwareInterface
 {
 
-    /**
-     * This property holds the pluginName for this instance.
-     * @var string
-     */
-    protected $pluginName;
 
     /**
      * This property holds the container for this instance.
@@ -38,7 +33,7 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
      */
     public function __construct()
     {
-        $this->pluginName = null;
+        $this->container = null;
     }
 
     /**
@@ -273,7 +268,7 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
         if ('deleteMultiple' === $microAction) {
             $microAction = 'delete';
         }
-        $microPermission = $this->pluginName . ".tables.$table.$microAction";
+        $microPermission = "tables.$table.$microAction";
         /**
          * @var $microP LightMicroPermissionService
          */

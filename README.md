@@ -59,6 +59,10 @@ crud:
 History Log
 =============
 
+- 1.5.0 -- 2019-12-18
+
+    - update to accommodate Light_MicroPermission 2.0
+    
 - 1.4.0 -- 2019-12-16
 
     - removed event system, as it's now handled directly by the underlying Light_Database plugin
