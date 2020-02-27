@@ -78,7 +78,7 @@ class LightCrudService
             $handler->execute($pluginContextIdentifier, $table, $action, $params);
 
         } else {
-            throw new LightCrudException("Unknown handler with pluginIdentifier \"$pluginIdentifier\".");
+            throw new LightCrudException("LightCrudService: Unknown handler with pluginIdentifier \"$pluginIdentifier\".");
         }
     }
 

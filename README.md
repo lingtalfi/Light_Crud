@@ -1,6 +1,6 @@
 Light_Crud
 ===========
-2019-11-28
+2019-11-28 -> 2020-02-27
 
 
 
@@ -59,6 +59,10 @@ crud:
 History Log
 =============
 
+- 1.5.1 -- 2020-02-27
+
+    - update LightCrudService->execute, gives more details about an error message
+    
 - 1.5.0 -- 2019-12-18
 
     - update to accommodate Light_MicroPermission 2.0
