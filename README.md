@@ -1,6 +1,6 @@
 Light_Crud
 ===========
-2019-11-28 -> 2020-02-27
+2019-11-28 -> 2020-03-06
 
 
 
@@ -59,6 +59,10 @@ crud:
 History Log
 =============
 
+- 1.6.0 -- 2020-03-06
+
+    - implement row restriction
+    
 - 1.5.1 -- 2020-02-27
 
     - update LightCrudService->execute, gives more details about an error message
