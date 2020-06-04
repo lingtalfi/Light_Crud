@@ -1,6 +1,6 @@
 Light_Crud
 ===========
-2019-11-28 -> 2020-03-06
+2019-11-28 -> 2020-06-04
 
 
 
@@ -59,6 +59,10 @@ crud:
 History Log
 =============
 
+- 1.7.0 -- 2020-06-04
+
+    - adapt for new Light_AjaxHandler api
+    
 - 1.6.0 -- 2020-03-06
 
     - implement row restriction
