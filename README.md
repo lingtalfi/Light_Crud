@@ -59,6 +59,10 @@ crud:
 History Log
 =============
 
+- 2.0.0 -- 2020-08-28
+
+    - lighter api 
+    
 - 1.8.0 -- 2020-08-28
 
     - removed row restriction implementation, deemed a bad idea

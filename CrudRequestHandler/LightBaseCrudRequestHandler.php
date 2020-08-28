@@ -47,28 +47,26 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
     /**
      * @implementation
      */
-    public function execute(string $pluginContextIdentifier, string $table, string $action, array $params = [])
+    public function execute(string $table, string $action, array $params = [])
     {
-        if (false === in_array($table, $this->getAllowedTables())) {
-            $this->error("Table not allowed: $table.");
-        }
-        $this->checkMicroPermission($pluginContextIdentifier, $table, $action);
+
+        $this->checkMicroPermission($table, $action);
 
         switch ($action) {
             case "create":
-                $this->executeCreate($pluginContextIdentifier, $table, $params);
+                $this->executeCreate($table, $params);
                 break;
             case "read":
                 $this->error("Not implemented yet: action read, with table=$table.");
                 break;
             case "update":
-                $this->executeUpdate($pluginContextIdentifier, $table, $params);
+                $this->executeUpdate($table, $params);
                 break;
             case "delete":
-                $this->executeDelete($pluginContextIdentifier, $table, $params);
+                $this->executeDelete($table, $params);
                 break;
             case "deleteMultiple":
-                $this->executeDelete($pluginContextIdentifier, $table, $params, true);
+                $this->executeDelete($table, $params, true);
                 break;
             default:
                 break;
@@ -93,12 +91,11 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
      * - ?multiplier: array, the multiplier array (see @page(the form multiplier trick) for more details)
      *
      *
-     * @param string $pluginContextIdentifier
      * @param string $table
      * @param array $params
      * @throws \Exception
      */
-    protected function executeCreate(string $pluginContextIdentifier, string $table, array $params = [])
+    protected function executeCreate(string $table, array $params = [])
     {
         /**
          * @var $dbInfoService LightDatabaseInfoService
@@ -163,12 +160,11 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
      * - updateRic: array, the key/value pairs array representing the @page(ric strict) columns and values of the row to update. It basically defines the where part of the sql query.
      * - ?multiplier: array, the multiplier array (see @page(the form multiplier trick) for more details)
      *
-     * @param string $pluginContextIdentifier
      * @param string $table
      * @param array $params
      * @throws \Exception
      */
-    protected function executeUpdate(string $pluginContextIdentifier, string $table, array $params = [])
+    protected function executeUpdate(string $table, array $params = [])
     {
 
         /**
@@ -211,13 +207,12 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
     /**
      * Executes the crud.delete request.
      *
-     * @param string $pluginContextIdentifier
      * @param string $table
      * @param array $params
      * @param bool $isMultiple
      * @throws \Exception
      */
-    protected function executeDelete(string $pluginContextIdentifier, string $table, array $params = [], bool $isMultiple = false)
+    protected function executeDelete(string $table, array $params = [], bool $isMultiple = false)
     {
         /**
          * @var $dbInfoService LightDatabaseInfoService
@@ -258,18 +253,17 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
      * Checks whether the current user has the correct micro permission, based on the given parameters,
      * and throws an exception if that's not the case.
      *
-     * @param string $pluginContextIdentifier
      * @param string $table
      * @param string $action
      * @throws \Exception
      */
-    protected function checkMicroPermission(string $pluginContextIdentifier, string $table, string $action)
+    protected function checkMicroPermission(string $table, string $action)
     {
         $microAction = $action;
         if ('deleteMultiple' === $microAction) {
             $microAction = 'delete';
         }
-        $microPermission = "tables.$table.$microAction";
+        $microPermission = "store.$table.$microAction";
         /**
          * @var $microP LightMicroPermissionService
          */
@@ -279,20 +273,6 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
         }
     }
 
-
-    /**
-     * Returns the array of allowed tables.
-     * @return array
-     * @throws \Exception
-     */
-    protected function getAllowedTables(): array
-    {
-        /**
-         * @var $dbInfoService LightDatabaseInfoService
-         */
-        $dbInfoService = $this->container->get("database_info");
-        return $dbInfoService->getTables();
-    }
 
 
     /**
