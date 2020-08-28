@@ -109,7 +109,7 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
 
         $userData = $params['data'];
         $multiplier = $params['multiplier'] ?? null;
-        $useRowRestriction = $params['useRowRestriction'] ?? false;
+
 
         /**
          * Make sure the user doesn't use the key to do some sql injection.
@@ -141,26 +141,14 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
                 $row = $data;
                 $row[$multiplierColumn] = $val;
                 if (true === $isInsert) {
-                    if (false === $useRowRestriction) {
-                        $db->insert($table, $row);
-                    } else {
-                        $db->pinsert($table, $row);
-                    }
+                    $db->insert($table, $row);
                 } else {
-                    if (false === $useRowRestriction) {
-                        $db->replace($table, $row);
-                    } else {
-                        $db->preplace($table, $row);
-                    }
+                    $db->replace($table, $row);
                 }
             }
 
         } else {
-            if (false === $useRowRestriction) {
-                $db->insert($table, $data);
-            } else {
-                $db->pinsert($table, $data);
-            }
+            $db->insert($table, $data);
         }
     }
 
@@ -194,7 +182,6 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
 
         $userData = $params['data'];
         $userRic = $params['updateRic']; // array of key/value pairs
-        $useRowRestriction = $params['useRowRestriction'] ?? false;
 
 
         /**
@@ -217,11 +204,7 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
          * @var $db LightDatabaseService
          */
         $db = $this->container->get("database");
-        if (false === $useRowRestriction) {
-            $db->update($table, $data, $ric);
-        } else {
-            $db->pupdate($table, $data, $ric);
-        }
+        $db->update($table, $data, $ric);
     }
 
 
@@ -241,7 +224,6 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
          */
         $dbInfoService = $this->container->get("database_info");
         $tableInfo = $dbInfoService->getTableInfo($table);
-        $useRowRestriction = $params['useRowRestriction'] ?? false;
 
 
         /**
@@ -267,14 +249,8 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
 
         $markers = [];
         $sWhere = RicHelper::getWhereByRics($ricStrict, $rics, $markers);
-
-        if (false === $useRowRestriction) {
-            $db->delete($table, $sWhere, $markers);
-        } else {
-            $db->pdelete($table, $sWhere, $markers);
-        }
+        $db->delete($table, $sWhere, $markers);
     }
-
 
 
     /**
