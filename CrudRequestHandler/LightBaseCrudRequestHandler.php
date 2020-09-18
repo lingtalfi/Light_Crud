@@ -12,6 +12,7 @@ use Ling\Light_Database\Service\LightDatabaseService;
 use Ling\Light_DatabaseInfo\Service\LightDatabaseInfoService;
 use Ling\Light_MicroPermission\Service\LightMicroPermissionService;
 use Ling\SimplePdoWrapper\Util\RicHelper;
+use Ling\SimplePdoWrapper\Util\Where;
 
 
 /**
@@ -120,28 +121,31 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
 
 
         if ($multiplier) {
-            $multiplierColumn = $multiplier['column'];
-            $insertMode = $multiplier['insert_mode'] ?? 'insert';
-            $isInsert = ("insert" === $insertMode);
+            ArrayTool::arrayKeyExistAll([
+                "field_id",
+            ], $multiplier, true);
 
+            $fieldId = $multiplier['field_id'];
 
-            if (false === array_key_exists($multiplierColumn, $data)) {
-                $this->error("Multiplier column \"$multiplierColumn\" defined but not found in the given data.");
+            /**
+             * assuming the field id always represents a top level entry of the data (otherwise we need to use bdot)
+             */
+            if (false === array_key_exists($fieldId, $data)) {
+                $this->error("Multiplier column \"$fieldId\" defined but not found in the given data.");
             }
-            if (false === is_array($data[$multiplierColumn])) {
-                $type = gettype($data[$multiplierColumn]);
-                $this->error("The \"$multiplierColumn\" multiplier column's value must be an array, $type given.");
+
+            if (false === is_array($data[$fieldId])) {
+                $type = gettype($data[$fieldId]);
+                $this->error("The \"$fieldId\" multiplier column's value must be an array, $type given.");
             }
 
 
-            foreach ($data[$multiplierColumn] as $val) {
+            foreach ($data[$fieldId] as $val) {
                 $row = $data;
-                $row[$multiplierColumn] = $val;
-                if (true === $isInsert) {
-                    $db->insert($table, $row);
-                } else {
-                    $db->replace($table, $row);
-                }
+                $row[$fieldId] = $val;
+                $db->insert($table, $row, [
+                    'ignore' => true,
+                ]);
             }
 
         } else {
@@ -178,8 +182,7 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
 
         $userData = $params['data'];
         $userRic = $params['updateRic']; // array of key/value pairs
-
-
+        $multiplier = $params['multiplier'] ?? null;
         /**
          * Make sure the user doesn't use the key to do some sql injection.
          */
@@ -194,13 +197,66 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
          */
         ArrayTool::arrayKeyExistAll($ricStrict, $userRic, true);
         $ric = ArrayTool::intersect($userRic, $ricStrict);
-
-
         /**
          * @var $db LightDatabaseService
          */
         $db = $this->container->get("database");
-        $db->update($table, $data, $ric);
+
+
+        if (null === $multiplier) {
+            $db->update($table, $data, $ric);
+        } else {
+            ArrayTool::arrayKeyExistAll([
+                "pivot",
+                "field_id",
+            ], $multiplier, true);
+
+            $pivot = $multiplier['pivot'];
+            $fieldId = $multiplier['field_id'];
+
+            /**
+             * abc.1
+             */
+            if (false === array_key_exists($fieldId, $ric)) {
+                $this->error("The \"$fieldId\" property was not found in the given ric.");
+            }
+            if (false === array_key_exists($pivot, $ric)) {
+                $this->error("The \"$pivot\" property was not found in the given ric.");
+            }
+
+            /**
+             * abc.1
+             */
+            if (false === array_key_exists($fieldId, $userData)) {
+                $this->error("The \"$fieldId\" property was not found in the posted data.");
+            }
+
+            $values = $userData[$fieldId];
+
+            if (false === is_array($values)) {
+                $type = gettype($values);
+                $this->error("The \"$fieldId\" must be an array, $type given.");
+            }
+
+
+            /**
+             * delete all, then reinsert, see the [form multiplier trick](https://github.com/lingtalfi/TheBar/blob/master/discussions/form-multiplier.md) for more details.
+             */
+            $db->delete($table, Where::inst()->key($pivot)->equals($ric[$pivot]));
+
+
+            $row = $userData;
+            /**
+             * abc.1
+             */
+            unset($row[$fieldId]);
+            foreach ($values as $value) {
+                $row[$fieldId] = $value;
+                $db->insert($table, $row, [
+                    'ignore' => true,
+                ]);
+            }
+        }
     }
 
 
@@ -272,7 +328,6 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
             $this->error("Micro-permission denied: $microPermission.");
         }
     }
-
 
 
     /**

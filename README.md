@@ -1,6 +1,6 @@
 Light_Crud
 ===========
-2019-11-28 -> 2020-08-28
+2019-11-28 -> 2020-09-18
 
 
 
@@ -59,6 +59,10 @@ crud:
 History Log
 =============
 
+- 2.0.1-- 2020-09-18
+
+    - implementation of the multiplier trick
+    
 - 2.0.0 -- 2020-08-28
 
     - lighter api 
