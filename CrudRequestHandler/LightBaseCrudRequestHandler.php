@@ -122,10 +122,10 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
 
         if ($multiplier) {
             ArrayTool::arrayKeyExistAll([
-                "field_id",
+                "item_id",
             ], $multiplier, true);
 
-            $fieldId = $multiplier['field_id'];
+            $fieldId = $multiplier['item_id'];
 
             /**
              * assuming the field id always represents a top level entry of the data (otherwise we need to use bdot)
@@ -208,11 +208,11 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
         } else {
             ArrayTool::arrayKeyExistAll([
                 "pivot",
-                "field_id",
+                "item_id",
             ], $multiplier, true);
 
             $pivot = $multiplier['pivot'];
-            $fieldId = $multiplier['field_id'];
+            $fieldId = $multiplier['item_id'];
 
             /**
              * abc.1
