@@ -107,7 +107,6 @@ class LightBaseCrudRequestHandler implements LightCrudRequestHandlerInterface, L
         $userData = $params['data'];
         $multiplier = $params['multiplier'] ?? null;
 
-
         /**
          * Make sure the user doesn't use the key to do some sql injection.
          */

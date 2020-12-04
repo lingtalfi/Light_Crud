@@ -59,6 +59,10 @@ crud:
 History Log
 =============
 
+- 2.0.1 -- 2020-12-04
+
+    - Add lpi-deps.byml file
+
 - 2.0.3-- 2020-11-20
 
     - update api to adapt simple multiplier trick's 
