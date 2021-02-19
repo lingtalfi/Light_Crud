@@ -59,6 +59,10 @@ crud:
 History Log
 =============
 
+- 2.0.3 -- 2021-02-19
+
+    - upgrade dependencies
+
 - 2.0.2 -- 2020-12-08
 
     - Fix lpi-deps not using natsort.
