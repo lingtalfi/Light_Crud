@@ -76,6 +76,10 @@ $ajax_handler.methods_collection:
 History Log
 =============
 
+- 2.0.6 -- 2021-05-11
+
+    - Update deps (by CommitWizard).
+
 - 2.0.5 -- 2021-03-15
 
     - update planet to adapt Ling.Light:0.70.0

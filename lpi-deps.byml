@@ -150,3 +150,12 @@
     - Ling:Light_DatabaseInfo:1.12.5+
     - Ling:Light_MicroPermission:3.0.7+
     - Ling:SimplePdoWrapper:1.30.17+
+
+2.0.6: 
+    - Ling:Bat:1.315+
+    - Ling:Light:0.70.4+
+    - Ling:Light_AjaxHandler:2.2.6+
+    - Ling:Light_Database:1.14.24+
+    - Ling:Light_DatabaseInfo:1.12.6+
+    - Ling:Light_MicroPermission:3.0.9+
+    - Ling:SimplePdoWrapper:1.30.17+
